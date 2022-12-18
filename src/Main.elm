@@ -445,7 +445,7 @@ entitiesView entities =
             entities
 
         entityList =
-            List.filter (\x -> x /= Nothing) [ a, b, c ]
+            [ a, b, c ]
     in
     List.map
         (\x ->
