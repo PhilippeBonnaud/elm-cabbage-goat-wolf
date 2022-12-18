@@ -83,6 +83,10 @@ init _ =
     ( modelInitialValue, Cmd.none )
 
 
+
+-- UPDATE FUNCTIONS
+
+
 updateEntity : Entities -> Entity -> Maybe Entity -> Entities
 updateEntity ( a, b, c ) target value =
     case target of
@@ -215,6 +219,10 @@ checkWin target =
             RUNNING
 
 
+
+-- UPDATE
+
+
 type Msg
     = START
     | BOARD Entity
@@ -249,6 +257,10 @@ update msg model =
 subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.none
+
+
+
+-- VIEW
 
 
 gameDescription =
@@ -324,6 +336,10 @@ view model =
             )
         ]
     }
+
+
+
+-- VIEW FUNCTIONS
 
 
 gameView : Model -> Element Msg
