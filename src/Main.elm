@@ -356,13 +356,19 @@ gameView model =
             ]
         , Element.row
             [ Background.color <| rgb255 66 122 161
+            , padding 25
             , height <| fillPortion 3
             , width fill
             ]
             [ Element.el [] <| text "River"
             , Element.row
                 [ centerX
-                , centerY
+                , case model.gameState.boatPosition of
+                    ORIGIN ->
+                        Element.alignTop
+
+                    TARGET ->
+                        Element.alignBottom
                 , padding 50
                 , Background.color <| rgb255 55 50 42
                 ]
@@ -387,9 +393,9 @@ gameView model =
                     , Element.el
                         [ width <| px 100
                         , height <| px 100
-                        , centerY
                         , alignLeft
                         , Font.color <| rgb255 255 255 255
+                        , centerY
                         ]
                       <|
                         case model.gameState.boatPosition of
@@ -461,18 +467,22 @@ entitiesView entities =
 
 entityView : Maybe Entity -> Element Msg
 entityView mEntity =
-    case mEntity of
-        Just CABBAGE ->
-            text "Cabbage"
+    let
+        msg =
+            case mEntity of
+                Just CABBAGE ->
+                    text "Cabbage"
 
-        Just GOAT ->
-            text "Goat"
+                Just GOAT ->
+                    text "Goat"
 
-        Just WOLF ->
-            text "Wolf"
+                Just WOLF ->
+                    text "Wolf"
 
-        Nothing ->
-            text ""
+                Nothing ->
+                    text ""
+    in
+    Element.el [ centerX, centerY ] msg
 
 
 boardEntityButton : Entity -> Element Msg -> Element Msg

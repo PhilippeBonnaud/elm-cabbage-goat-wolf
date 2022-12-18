@@ -16216,10 +16216,14 @@ var $author$project$Main$CROSS = {$: 'CROSS'};
 var $author$project$Main$UNBOARD = function (a) {
 	return {$: 'UNBOARD', a: a};
 };
+var $mdgriffith$elm_ui$Internal$Model$Bottom = {$: 'Bottom'};
+var $mdgriffith$elm_ui$Element$alignBottom = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$Bottom);
 var $mdgriffith$elm_ui$Internal$Model$Left = {$: 'Left'};
 var $mdgriffith$elm_ui$Element$alignLeft = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$Left);
 var $mdgriffith$elm_ui$Internal$Model$Right = {$: 'Right'};
 var $mdgriffith$elm_ui$Element$alignRight = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$Right);
+var $mdgriffith$elm_ui$Internal$Model$Top = {$: 'Top'};
+var $mdgriffith$elm_ui$Element$alignTop = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$Top);
 var $mdgriffith$elm_ui$Internal$Model$Button = {$: 'Button'};
 var $mdgriffith$elm_ui$Internal$Model$Describe = function (a) {
 	return {$: 'Describe', a: a};
@@ -16479,21 +16483,28 @@ var $mdgriffith$elm_ui$Element$text = function (content) {
 	return $mdgriffith$elm_ui$Internal$Model$Text(content);
 };
 var $author$project$Main$entityView = function (mEntity) {
-	if (mEntity.$ === 'Just') {
-		switch (mEntity.a.$) {
-			case 'CABBAGE':
-				var _v1 = mEntity.a;
-				return $mdgriffith$elm_ui$Element$text('Cabbage');
-			case 'GOAT':
-				var _v2 = mEntity.a;
-				return $mdgriffith$elm_ui$Element$text('Goat');
-			default:
-				var _v3 = mEntity.a;
-				return $mdgriffith$elm_ui$Element$text('Wolf');
+	var msg = function () {
+		if (mEntity.$ === 'Just') {
+			switch (mEntity.a.$) {
+				case 'CABBAGE':
+					var _v1 = mEntity.a;
+					return $mdgriffith$elm_ui$Element$text('Cabbage');
+				case 'GOAT':
+					var _v2 = mEntity.a;
+					return $mdgriffith$elm_ui$Element$text('Goat');
+				default:
+					var _v3 = mEntity.a;
+					return $mdgriffith$elm_ui$Element$text('Wolf');
+			}
+		} else {
+			return $mdgriffith$elm_ui$Element$text('');
 		}
-	} else {
-		return $mdgriffith$elm_ui$Element$text('');
-	}
+	}();
+	return A2(
+		$mdgriffith$elm_ui$Element$el,
+		_List_fromArray(
+			[$mdgriffith$elm_ui$Element$centerX, $mdgriffith$elm_ui$Element$centerY]),
+		msg);
 };
 var $author$project$Main$entitiesView = function (entities) {
 	var _v0 = entities;
@@ -16626,6 +16637,7 @@ var $author$project$Main$gameView = function (model) {
 					[
 						$mdgriffith$elm_ui$Element$Background$color(
 						A3($mdgriffith$elm_ui$Element$rgb255, 66, 122, 161)),
+						$mdgriffith$elm_ui$Element$padding(25),
 						$mdgriffith$elm_ui$Element$height(
 						$mdgriffith$elm_ui$Element$fillPortion(3)),
 						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
@@ -16641,7 +16653,14 @@ var $author$project$Main$gameView = function (model) {
 						_List_fromArray(
 							[
 								$mdgriffith$elm_ui$Element$centerX,
-								$mdgriffith$elm_ui$Element$centerY,
+								function () {
+								var _v0 = model.gameState.boatPosition;
+								if (_v0.$ === 'ORIGIN') {
+									return $mdgriffith$elm_ui$Element$alignTop;
+								} else {
+									return $mdgriffith$elm_ui$Element$alignBottom;
+								}
+							}(),
 								$mdgriffith$elm_ui$Element$padding(50),
 								$mdgriffith$elm_ui$Element$Background$color(
 								A3($mdgriffith$elm_ui$Element$rgb255, 55, 50, 42))
@@ -16688,14 +16707,14 @@ var $author$project$Main$gameView = function (model) {
 												$mdgriffith$elm_ui$Element$px(100)),
 												$mdgriffith$elm_ui$Element$height(
 												$mdgriffith$elm_ui$Element$px(100)),
-												$mdgriffith$elm_ui$Element$centerY,
 												$mdgriffith$elm_ui$Element$alignLeft,
 												$mdgriffith$elm_ui$Element$Font$color(
-												A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255))
+												A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255)),
+												$mdgriffith$elm_ui$Element$centerY
 											]),
 										function () {
-											var _v0 = model.gameState.boatPosition;
-											if (_v0.$ === 'ORIGIN') {
+											var _v1 = model.gameState.boatPosition;
+											if (_v1.$ === 'ORIGIN') {
 												return A2(
 													$mdgriffith$elm_ui$Element$Input$button,
 													_List_fromArray(
@@ -16735,11 +16754,11 @@ var $author$project$Main$gameView = function (model) {
 											_List_fromArray(
 												[$mdgriffith$elm_ui$Element$centerY, $mdgriffith$elm_ui$Element$centerX]),
 											function () {
-												var _v1 = model.gameState.boatLoad;
-												if (_v1.$ === 'Nothing') {
+												var _v2 = model.gameState.boatLoad;
+												if (_v2.$ === 'Nothing') {
 													return $mdgriffith$elm_ui$Element$text('');
 												} else {
-													var e = _v1.a;
+													var e = _v2.a;
 													return A2(
 														$mdgriffith$elm_ui$Element$Input$button,
 														_List_fromArray(
